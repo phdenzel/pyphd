@@ -24,6 +24,7 @@ from pyphd.template import PROJECT_STRUCTURE, FILE_HEADER
 def main():
     """Main pyphd package method."""
     context = parse_args()
+    verbose = context.pop("verbose", False)
     file_head = FILE_HEADER.format(**context)
 
     for fyle, content in PROJECT_STRUCTURE.items():
@@ -32,6 +33,8 @@ def main():
 
         # write new file (and folders)
         if not fyle.exists():
+            if verbose:
+                print("Creating file:", fyle)
             fyle.parent.mkdir(parents=True, exist_ok=True)
             if not fyle.parent.samefile("."):
                 with fyle.open("w") as f:
@@ -45,5 +48,7 @@ def main():
             with fyle.open("r+") as f:
                 text = fyle.read_text()
                 if not text.startswith(file_head):
+                    if verbose:
+                        print("Amending file:", fyle)
                     f.seek(0)
                     f.writelines(file_head + text)

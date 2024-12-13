@@ -841,5 +841,6 @@ PROJECT_STRUCTURE = {
     "src/{pkg_name}/__about__.py": ABOUT_FILE,
     "LICENSE": LICENSE,
     "README.md": README_FILE,
+    "tests/__init__.py": INIT_FILE,
     "tests/test_{pkg_name}.py": TEST_PKG_FILE,
 }
