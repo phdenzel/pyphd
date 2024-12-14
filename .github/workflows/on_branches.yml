@@ -3,7 +3,6 @@
 name: Branch workflow
 
 on:
-  on:
   pull_request:
     types: [synchronize]
     branches-ignore: ["main"]
