@@ -13,7 +13,7 @@ on:
         default: "package-dist"
         required: false
       test:
-        description: "Test publish to TestPyPI instead"
+        description: "Publish to TestPyPI instead"
         type: boolean
         default: false
         required: false
@@ -27,7 +27,7 @@ jobs:
 
     environment:
       name: ${{ inputs.test && 'testpypi' || 'pypi' }}
-      url: ${{ inputs.test && format('{0}/{1}', 'https://test.pypi.org/p', github.repository.name) || format('{0}/{1}', 'https://pypi.org/p', github.repository.name) }}
+      url: ${{ inputs.test && format('{0}/{1}', 'https://test.pypi.org/p', github.event.repository.name) || format('{0}/{1}', 'https://pypi.org/p', github.event.repository.name) }}
 
     steps:
       - name: Download 🗃️
