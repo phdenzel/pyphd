@@ -5,12 +5,13 @@
 name: Build distribution 🐍📦
 
 on:
-  workflow_run:
-    workflows: [Test installation]
-    types:
-      - completed
-    branches:
-      - "**"
+  workflow_call:
+    inputs:
+      artifact-name:
+        description: "Artifact name of the distribution package"
+        type: string
+        default: "package-dist"
+        required: false
 
 jobs:
   build-package:
@@ -40,5 +41,5 @@ jobs:
       - name: 🗃️ build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: package-dist
+          name: ${{ inputs.artifact-name }}
           path: dist/
