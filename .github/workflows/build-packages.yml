@@ -6,7 +6,7 @@ name: Build distribution
 
 on:
   workflow_run:
-    workflows: ["Test installation"]
+    workflows: [Test installation]
     types:
       - completed
 
