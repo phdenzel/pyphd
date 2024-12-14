@@ -65,4 +65,3 @@ jobs:
         with:
           name: pytest-results-${{ matrix.python-version }}
           path: junit/pytest-results-${{ matrix.python-version }}.xml
-        if: ${{ always() }}
