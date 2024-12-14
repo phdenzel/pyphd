@@ -23,6 +23,11 @@ on:
         type: boolean
         default: true
         required: false
+      artifact-name:
+        description: "Artifact base name of the pytest results"
+        type: string
+        default: "pytest-results"
+        required: false
 
 jobs:
   test-install-python-version:
@@ -57,11 +62,11 @@ jobs:
       - name: 🧪 with pytest
         if: ${{ inputs.pytest }}
         run: |
-          pytest --junitxml=junit/test-results-${{ matrix.python-version }}.xml
+          pytest --junitxml=junit/${{ inputs.artifact-name }}-${{ matrix.python-version }}.xml
 
       - name: 🗃️ pytest artifacts
         if: ${{ inputs.pytest }}
         uses: actions/upload-artifact@v4
         with:
-          name: pytest-results-${{ matrix.python-version }}
-          path: ./junit/pytest-results-${{ matrix.python-version }}.xml
+          name: ${{ inputs.artifact-name }}-${{ matrix.python-version }}
+          path: ./junit/${{ inputs.artifact-name }}-${{ matrix.python-version }}.xml

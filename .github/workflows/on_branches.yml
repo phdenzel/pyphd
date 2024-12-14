@@ -16,6 +16,7 @@ jobs:
       versions: '["3.10", "3.11", "3.12"]'
       lint: true
       pytest: true
+      artifact-name: "pytest-results"
 
   build-package:
     name: Build distribution 📦
