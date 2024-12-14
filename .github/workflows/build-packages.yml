@@ -1,24 +1,26 @@
-# Build package for distribution
-# For more information see: https://packaging.python.org/en/latest/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/
+# Build the 🐍 Python package 📦 for distribution
+# For more information see:
+# https://packaging.python.org/en/latest/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/
 
-name: Build distribution 🐍📦
+name: Build distribution
 
 on:
-  push:
-    paths-ignore:
-      - src/pyphd/__about__.py
-  pull_request:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["Test installation"]
+    types:
+      - completed
 
 jobs:
   build-package:
 
     runs-on: ubuntu-latest
-    needs: test-install
+    if: ${{ github.event.workflow_run.conclusion == "success" }}
 
     steps:
       - uses: actions/checkout@v4
+
+      - run: |
+          echo "${{ github.env }}"
 
       - name: Set up 🐍 3.x
         uses: actions/setup-python@v5

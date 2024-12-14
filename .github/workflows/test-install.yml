@@ -1,7 +1,9 @@
-# This worflow will install the package and run linting on a variety of Python versions
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+# This worflow will install the package 📦 with dependecies 👽️, run linting 🚨,
+# and pytests 🧪 on a variety of Python 🐍 versions
+# For more information see:
+# https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
-name : Test installation on all Python versions
+name : Test installation
 
 on:
   push:
