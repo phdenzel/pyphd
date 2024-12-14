@@ -5,6 +5,7 @@ name: Branch workflow
 on:
   push:
     branches-ignore: ["main"]
+    paths-ignore: ["**/__about__.py"]
     
 
 jobs:
