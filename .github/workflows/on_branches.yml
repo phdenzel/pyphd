@@ -1,11 +1,13 @@
-# Workflow that triggers when commits are pushed to PRs
+# Workflow that triggers when commits are pushed 
 
 on:
-  pull_request:
-    types: [synchronize]
+  push:
+    branches-ignore: ["main"]
+    
 
 jobs:
   test-install-python-version:
+    name: Test install on 🐍
     uses: ./.github/workflows/test-install.yml
     with:
       versions: '["3.10", "3.11", "3.12"]'
@@ -13,8 +15,7 @@ jobs:
       pytest: true
 
   build-package:
+    name: Build distribution 📦
     uses: ./.github/workflows/build-package.yml
     with:
       artifact-name: "package-dist"
-
-  
