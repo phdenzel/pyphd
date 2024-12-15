@@ -12,7 +12,7 @@ on:
     paths-ignore: ["**/__about__.py"]
 
 concurrency:
-  group: ${{ github.ref }}
+  group: branch
   cancel-in-progress: true
 
 jobs:
