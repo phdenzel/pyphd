@@ -1,4 +1,4 @@
-# Workflow that triggers when commits are pushed to a PR
+# Workflow that triggers when commits are pushed to an unmerged PR
 
 name: PR workflow
 
