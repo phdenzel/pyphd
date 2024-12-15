@@ -21,9 +21,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - run: |
-          echo "${{ github.env }}"
-
       - name: Set up 🐍 3.x
         uses: actions/setup-python@v5
         with:

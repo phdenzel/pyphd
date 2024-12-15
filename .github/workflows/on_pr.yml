@@ -36,11 +36,12 @@ jobs:
       artifact-name: "package-dist"
 
   version-bump-dev:
-    name: Version bump ↗️ (pre-release)
+    name: Version bump ↗️ (dev)
     needs: publish-to-testpypi
     if: ${{ github.event.pull_request.merged == false }}
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Hatch version bump ↗️
         uses: phdenzel/hatch-bump@v1
         with:
