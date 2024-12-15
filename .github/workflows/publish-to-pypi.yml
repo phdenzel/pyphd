@@ -30,12 +30,12 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    # permissions:
-    #   id-token: write
-
     environment:
       name: ${{ inputs.test && 'testpypi' || 'pypi' }}
       url: ${{ inputs.test && format('{0}/{1}', 'https://test.pypi.org/p', github.event.repository.name) || format('{0}/{1}', 'https://pypi.org/p', github.event.repository.name) }}
+
+    # permissions:
+    #   id-token: write
 
     steps:
       - name: Download 🗃️

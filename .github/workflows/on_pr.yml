@@ -40,8 +40,6 @@ jobs:
     needs: publish-to-pypi
     if: ${{ github.event.pull_request.merged == false }}
     runs-on: ubuntu-latest
-    steps:
-      - name: Log context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
+    uses: phdenzel/hatch-bump@v1
+    with:
+      bump-type: "dev"
