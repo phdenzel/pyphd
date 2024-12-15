@@ -50,5 +50,5 @@ jobs:
           repository-url: ${{ inputs.test && 'https://test.pypi.org/legacy/' || 'https://upload.pypi.org/legacy/' }}
           password: ${{ secrets.pypi_token }}
           attestations: 'false'
-          skip-exiting: 'true'
+          skip-existing: 'true'
           verbose: ${{ inputs.verbose }}
