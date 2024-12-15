@@ -39,6 +39,7 @@ jobs:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
     uses: ./.github/workflows/publish-to-pypi.yml
     with:
+      verbose: true
       test: true
       artifact-name: "package-dist"
 

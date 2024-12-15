@@ -17,11 +17,17 @@ on:
         type: boolean
         default: false
         required: false
+      verbose:
+        description: "Verbosity for publishing"
+        type: boolean
+        default: false
+        required: false
 
 jobs:
   publish-to-pypi:
 
     runs-on: ubuntu-latest
+    secrets: inherit
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
 
@@ -42,4 +48,5 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository-url: ${{ inputs.test && 'https://test.pypi.org/legacy/' || 'https://upload.pypi.org/legacy/' }}
+          verbose: ${{ inputs.verbose }}
       
