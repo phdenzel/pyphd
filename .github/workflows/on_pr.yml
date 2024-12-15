@@ -1,33 +1,48 @@
-# Workflow that triggers when commits are pushed 
+# Workflow that triggers when commits are pushed to a PR
 
 name: PR workflow
 
 on:
   pull_request:
     types: [synchronize]
-    branches-ignore: ["main"]
-    paths-ignore: ["**/__about__.py"]
-  push:
-    branches-ignore: ["main"]
+    branches: ["main"]
     paths-ignore: ["**/__about__.py"]
 
-concurrency:
-  group: ${{ github.ref }}
-  cancel-in-progress: true
+jobs:
+  test-install-python-version:
+    name: Test install on 🐍
+    uses: ./.github/workflows/test-install.yml
+    with:
+      versions: '["3.10", "3.11", "3.12"]'
+      lint: true
+      pytest: true
+      artifact-name: "pytest-results"
 
-# jobs:
-#   test-install-python-version:
-#     name: Test install on 🐍
-#     uses: ./.github/workflows/test-install.yml
-#     with:
-#       versions: '["3.10", "3.11", "3.12"]'
-#       lint: true
-#       pytest: true
-#       artifact-name: "pytest-results"
+  build-package:
+    name: Build distribution 📦
+    needs: test-install-python-version
+    uses: ./.github/workflows/build-package.yml
+    with:
+      artifact-name: "package-dist"
 
-#   build-package:
-#     name: Build distribution 📦
-#     needs: test-install-python-version
-#     uses: ./.github/workflows/build-package.yml
-#     with:
-#       artifact-name: "package-dist"
+  publish-to-pypi:
+    name: Publish 🐍📦 to PyPI
+    needs: build-package
+    if: ${{ github.event.pull_request.merged == false }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
+  version-bump-dev:
+    name: Version bump ↗️ (pre-release)
+    needs: publish-to-pypi
+    if: ${{ github.event.pull_request.merged == false }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
