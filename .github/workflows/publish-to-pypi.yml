@@ -27,16 +27,14 @@ jobs:
   publish-to-pypi:
 
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write  # IMPORTANT: mandatory for trusted publishing
+    # permissions:
+    #   id-token: write  # IMPORTANT: mandatory for trusted publishing
 
     environment:
       name: ${{ inputs.test && 'testpypi' || 'pypi' }}
       url: ${{ inputs.test && format('{0}/{1}', 'https://test.pypi.org/p', github.event.repository.name) || format('{0}/{1}', 'https://pypi.org/p', github.event.repository.name) }}
 
     steps:
-      - run: |
-          echo ${{ inputs.test && format('{0}/{1}', 'https://test.pypi.org/p', github.event.repository.name) || format('{0}/{1}', 'https://pypi.org/p', github.event.repository.name) }}
       - name: Download 🗃️
         uses: actions/download-artifact@v4
         with:
@@ -47,5 +45,5 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository-url: ${{ inputs.test && 'https://test.pypi.org/legacy/' || 'https://upload.pypi.org/legacy/' }}
+          password: ${{ secrets.pypi_token }}
           verbose: ${{ inputs.verbose }}
-      
