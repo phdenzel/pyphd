@@ -5,7 +5,6 @@ name: Branch workflow
 on:
   pull_request:
     types: [synchronize]
-    branches-ignore: ["main"]
     paths-ignore: ["**/__about__.py"]
   push:
     branches-ignore: ["main"]
