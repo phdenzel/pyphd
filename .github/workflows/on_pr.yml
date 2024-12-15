@@ -48,6 +48,8 @@ jobs:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
       - name: Hatch version bump ↗️
-        uses: phdenzel/hatch-bump@v1.0.1-dev2
+        uses: phdenzel/hatch-bump@v1.1.0
         with:
-          bump-type: "dev"
+          type: "dev"
+          ref: ${{ github.head_ref }}
+          force: false
