@@ -30,6 +30,8 @@ jobs:
       url: ${{ inputs.test && format('{0}/{1}', 'https://test.pypi.org/p', github.event.repository.name) || format('{0}/{1}', 'https://pypi.org/p', github.event.repository.name) }}
 
     steps:
+      - run: |
+          echo ${{ inputs.test && format('{0}/{1}', 'https://test.pypi.org/p', github.event.repository.name) || format('{0}/{1}', 'https://pypi.org/p', github.event.repository.name) }}
       - name: Download 🗃️
         uses: actions/download-artifact@v4
         with:
