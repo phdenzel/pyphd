@@ -5,6 +5,7 @@ name: Branch workflow
 on:
   pull_request:
     types: [synchronize]
+    branches: ["main"]
     paths-ignore: ["**/__about__.py"]
   push:
     branches-ignore: ["main"]
@@ -30,3 +31,17 @@ jobs:
     uses: ./.github/workflows/build-package.yml
     with:
       artifact-name: "package-dist"
+
+  publish-to-pypi:
+    name: Publish 🐍📦 to PyPI
+    if: ${{ !github.event.pull_request.merged }}
+    env:
+      GITHUB_CONTEXT: ${{ toJson(github) }}
+    run: echo "$GITHUB_CONTEXT"
+
+  version-bump-dev:
+    name: Version bump ↗️ (pre-release)
+    if: ${{ !github.event.pull_request.merged }}
+    env:
+      GITHUB_CONTEXT: ${{ toJson(github) }}
+    run: echo "$GITHUB_CONTEXT"
