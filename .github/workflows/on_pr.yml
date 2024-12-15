@@ -25,7 +25,7 @@ jobs:
     with:
       artifact-name: "package-dist"
 
-  publish-to-pypi:
+  publish-to-testpypi:
     name: Publish 🐍📦 to PyPI
     needs: build-package
     if: ${{ github.event.pull_request.merged == false }}
