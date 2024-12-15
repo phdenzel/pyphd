@@ -34,7 +34,7 @@ jobs:
 
   publish-to-pypi:
     name: Publish 🐍📦 to PyPI
-    if: ${{ !github.event.pull_request.merged }}
+    if: ${{ github.event.pull_request.merged == false }}
     runs-on: ubuntu-latest
     steps:
       - name: Log context
@@ -44,7 +44,7 @@ jobs:
 
   version-bump-dev:
     name: Version bump ↗️ (pre-release)
-    if: ${{ !github.event.pull_request.merged }}
+    if: ${{ github.event.pull_request.merged == false }}
     runs-on: ubuntu-latest
     steps:
       - name: Log context
