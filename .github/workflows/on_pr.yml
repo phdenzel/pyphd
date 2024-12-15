@@ -39,10 +39,15 @@ jobs:
     name: Version bump ↗️ (dev)
     needs: publish-to-testpypi
     if: ${{ github.event.pull_request.merged == false }}
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
       - name: Hatch version bump ↗️
-        uses: phdenzel/hatch-bump@v1.0.1-dev1
+        uses: phdenzel/hatch-bump@v1.0.1-dev2
         with:
           bump-type: "dev"
