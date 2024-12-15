@@ -1,0 +1,31 @@
+# Workflow that triggers when PRs are merged
+
+name: Merge to main workflow
+
+on:
+  pull_request:
+    types: [closed]
+    branches: ["main"]
+
+jobs:
+  version-bump-on-merge:
+    name: Version bump ⬆️ (micro)
+    if: ${{ github.event.pull_request.merged == true }}
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.base_ref }}
+          fetch-depth: 0
+      - name: Hatch version bump ⬆️
+        uses: phdenzel/hatch-bump@v1.1.0
+        with:
+          type: "micro"
+          ref: ${{ github.base_ref }}
+          force: true
