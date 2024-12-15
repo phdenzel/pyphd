@@ -37,7 +37,7 @@ jobs:
 
   version-bump-dev:
     name: Version bump ↗️ (pre-release)
-    needs: publish-to-pypi
+    needs: publish-to-testpypi
     if: ${{ github.event.pull_request.merged == false }}
     runs-on: ubuntu-latest
     steps:
