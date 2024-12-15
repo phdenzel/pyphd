@@ -27,7 +27,6 @@ jobs:
   publish-to-pypi:
 
     runs-on: ubuntu-latest
-    secrets: inherit
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
 
