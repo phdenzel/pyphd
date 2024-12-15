@@ -7,10 +7,6 @@ on:
     branches-ignore: ["main"]
     paths-ignore: ["**/__about__.py"]
 
-concurrency:
-  group: branch
-  cancel-in-progress: true
-
 jobs:
   in-pr-check:
     runs-on: ubuntu-latest
