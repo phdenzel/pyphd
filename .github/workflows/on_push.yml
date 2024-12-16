@@ -39,6 +39,7 @@ jobs:
     permissions:
       contents: write
       id-token: write
+    secrets: inherit
     uses: ./.github/workflows/github-release.yml
     with:
       artifact-name: "package-dist"
