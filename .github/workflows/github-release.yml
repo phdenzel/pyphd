@@ -41,6 +41,8 @@ jobs:
             ./dist/*.whl
 
       - name: Fetch release tag
+        env:
+          GH_TOKEN: ${{ secrets.READ_WRITE_PAT }}
         run: >-
           [ -n '${{ inputs.tag }}' ]
           && echo "RELEASE_TAG=${{ inputs.tag }}" >> $GITHUB_ENV
