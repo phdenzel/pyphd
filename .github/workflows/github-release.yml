@@ -14,6 +14,7 @@ on:
         required: false
       token:
         description: "GitHub or personal access token"
+        type: string
         default: ${{ github.token }}
         required: false
 
