@@ -5,7 +5,7 @@ name: Merge to main workflow
 on:
   pull_request:
     types: [closed]
-    branches: ["main"]
+    branches: [main]
 
 jobs:
   version-bump-on-merge:
@@ -21,9 +21,10 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.READ_WRITE_PAT }}
       - name: Hatch version bump ⬆️
-        uses: phdenzel/hatch-bump@v1.1.0-dev2
+        uses: phdenzel/hatch-bump@v1.1.0-dev3
         with:
           type: "micro"
           ref: ${{ github.base_ref }}
           github-token: ${{ secrets.READ_WRITE_PAT }}
+          tag: true
           force: true

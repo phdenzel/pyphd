@@ -5,7 +5,7 @@ name: PR workflow
 on:
   pull_request:
     types: [opened, synchronize]
-    branches: ["main"]
+    branches: [main]
     paths-ignore: ["**/__about__.py"]
 
 jobs:
@@ -48,8 +48,9 @@ jobs:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
       - name: Hatch version bump ↗️
-        uses: phdenzel/hatch-bump@v1.1.0
+        uses: phdenzel/hatch-bump@v1.1.0-dev3
         with:
           type: "dev"
           ref: ${{ github.head_ref }}
+          tag: false
           force: false

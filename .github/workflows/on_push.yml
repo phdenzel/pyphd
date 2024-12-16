@@ -4,7 +4,7 @@ name: Main version change workflow
 
 on:
   push:
-    branches: ["main"]
+    branches: [main]
     paths: ["**/__about__.py"]
 
 jobs:
@@ -25,18 +25,21 @@ jobs:
     with:
       artifact-name: "package-dist"
 
-  context-log:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
+  publish-to-pypi:
+    name: Publish 🐍📦 to PyPI
+    needs: build-package
+    secrets: inherit
+    uses: ./.github/workflows/publish-to-pypi.yml
+    with:
+      artifact-name: "package-dist"
 
-  # publish-to-pypi:
-  #   name: Publish 🐍📦 to PyPI
-  #   needs: build-package
-  #   secrets: inherit
-  #   uses: ./.github/workflows/publish-to-pypi.yml
-  #   with:
-  #     artifact-name: "package-dist"
+  github-release:
+    name: GitHub release 🚀
+    needs: [build-package, publish-to-pypi]
+    permissions:
+      contents: write
+      id-token: write
+    uses: ./.github/workflows/github-release.yml
+    with:
+      artifact-name: "package-dist"
+      token: ${{ github.token }}
