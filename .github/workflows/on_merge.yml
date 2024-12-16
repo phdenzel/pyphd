@@ -23,9 +23,11 @@ jobs:
         with:
           ref: ${{ github.base_ref }}
           fetch-depth: 0
+          token: ${{ secrets.READ_WRITE_PAT }}
       - name: Hatch version bump ⬆️
-        uses: phdenzel/hatch-bump@v1.1.0-dev0
+        uses: phdenzel/hatch-bump@v1.1.0-dev1
         with:
           type: "micro"
           ref: ${{ github.base_ref }}
+          github-token: ${{ secrets.READ_WRITE_PAT }}
           force: true
