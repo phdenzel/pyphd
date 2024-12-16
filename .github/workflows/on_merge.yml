@@ -5,7 +5,7 @@ name: Merge to main workflow
 on:
   pull_request:
     types: [closed]
-    branches: ["main"]
+    branches: [main]
 
 jobs:
   version-bump-on-merge:
@@ -26,4 +26,5 @@ jobs:
           type: "micro"
           ref: ${{ github.base_ref }}
           github-token: ${{ secrets.READ_WRITE_PAT }}
+          tag: true
           force: true
