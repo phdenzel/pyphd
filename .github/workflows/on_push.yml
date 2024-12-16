@@ -7,13 +7,10 @@ on:
     branches: ["main"]
     paths: ["**/__about__.py"]
 
-concurrency:
-  group: main
-  cancel-in-progress: true
-
 jobs:
   test-install-python-version:
     name: Test install on 🐍
+    if: ${{ startsWith(github.event.head_commit.message, "Bump") || startsWith(github.event.head_commit.message, "bump") }}
     uses: ./.github/workflows/test-install.yml
     with:
       versions: '["3.10", "3.11", "3.12"]'
@@ -28,10 +25,18 @@ jobs:
     with:
       artifact-name: "package-dist"
 
-  publish-to-pypi:
-    name: Publish 🐍📦 to PyPI
-    needs: build-package
-    secrets: inherit
-    uses: ./.github/workflows/publish-to-pypi.yml
-    with:
-      artifact-name: "package-dist"
+  context-log:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
+  # publish-to-pypi:
+  #   name: Publish 🐍📦 to PyPI
+  #   needs: build-package
+  #   secrets: inherit
+  #   uses: ./.github/workflows/publish-to-pypi.yml
+  #   with:
+  #     artifact-name: "package-dist"
