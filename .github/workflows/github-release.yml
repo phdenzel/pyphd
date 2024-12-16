@@ -42,7 +42,7 @@ jobs:
 
       - name: Create GitHub Release 🔖
         env:
-          GITHUB_TOKEN: ${{ inputs.token }}
+          GH_TOKEN: ${{ inputs.token }}
         run: >-
           gh release create
           '${{ github.ref_name }}'
@@ -51,7 +51,7 @@ jobs:
 
       - name: 🚀 GitHub Release
         env:
-          GITHUB_TOKEN: ${{ inputs.token }}
+          GH_TOKEN: ${{ inputs.token }}
         run: >-
           gh release upload
           '${{ github.ref_name }}' dist/**
