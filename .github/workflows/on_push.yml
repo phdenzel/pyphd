@@ -28,10 +28,10 @@ jobs:
     with:
       artifact-name: "package-dist"
 
-  # publish-to-pypi:
-  #   name: Publish 🐍📦 to PyPI
-  #   needs: build-package
-  #   secrets: inherit
-  #   uses: ./.github/workflows/publish-to-pypi.yml
-  #   with:
-  #     artifact-name: "package-dist"
+  publish-to-pypi:
+    name: Publish 🐍📦 to PyPI
+    needs: build-package
+    secrets: inherit
+    uses: ./.github/workflows/publish-to-pypi.yml
+    with:
+      artifact-name: "package-dist"
