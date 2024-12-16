@@ -17,4 +17,4 @@ Copyright (C) 2024  phdenzel
 """
 
 
-__version__ = "0.0.11.dev0"
+__version__ = "0.0.12"
