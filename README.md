@@ -1,5 +1,22 @@
 # pyphd
 
+This is a tool that creates a hatch project, and adds GLPv3 headers to
+project files. Also, it acts as a playground for various
+Python-related GitHub actions.
+
+Run the tool with options, e.g.
+```bash
+pyphd -p <PKG-NAME> --year 2024 -v
+```
+
+or write an `.env` file instead
+```bash
+PYPHD_PKG_NAME="<my-package>"
+PYPHD_NAME="<My Name>"
+PYPHD_EMAIL="<name@email.com>"
+PYPHD_USERNAME="<my-username>"
+```
+
 
 # Development
 
@@ -31,5 +48,8 @@ For development, I use a few GitHub actions to automate a few things. Here follo
     - triggers on PR merge
     - runs `version-bump-on-merge` (increments micro version on main)
   * `on_push.yml`
-    - triggers on push to the main branch upon version change
-    - runs `test-install`, `build-package`, `publish-to-pypi`
+    - triggers on push to the main branch upon automatic version change
+    - runs `test-install-python-version`, `build-package`, `publish-to-pypi`, `github-release`
+  * `on_dispatch.yml`
+    - triggers on dispatch (e.g. by running `gh workflow run on-dispatch.yml -f type=minor`)
+    - runs `version-bump` (increments chosen type of version on main)

@@ -1,3 +1,5 @@
+# Dispatch workflow for debugging purposes
+
 name: Context testing
 on:
   workflow_dispatch:
