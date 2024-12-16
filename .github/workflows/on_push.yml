@@ -42,4 +42,4 @@ jobs:
     uses: ./.github/workflows/github-release.yml
     with:
       artifact-name: "package-dist"
-      token: ${{ github.token }}
+      token: ${{ secrets.READ_WRITE_PAT }}
