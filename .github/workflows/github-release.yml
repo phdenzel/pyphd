@@ -12,6 +12,11 @@ on:
         type: string
         default: "package-dist"
         required: false
+      tag:
+        description: "Get latest tag"
+        type: string
+        default: ""
+        required: false
 
 jobs:
   github-release:
@@ -35,12 +40,17 @@ jobs:
             ./dist/*.tar.gz
             ./dist/*.whl
 
+      - name: Fetch release tag
+        run: >-
+          [ -n '${{ inputs.tag }}' ]
+          && echo "RELEASE_TAG=${{ inputs.tag }}" >> $GITHUB_ENV
+          || echo "RELEASE_TAG=$(gh api repos/${{ github.repository }}/tags --jq '.[0].name')" >> $GITHUB_ENV
+
       - name: Create GitHub Release 🔖
         env:
           GH_TOKEN: ${{ secrets.READ_WRITE_PAT }}
         run: >-
-          gh release create
-          '${{ github.ref_name }}'
+          gh release create ${{ env.RELEASE_TAG }}
           --repo '${{ github.repository }}'
           --notes ""
 
@@ -48,6 +58,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.READ_WRITE_PAT }}
         run: >-
-          gh release upload
-          '${{ github.ref_name }}' dist/**
+          gh release upload ${{ env.RELEASE_TAG }}
+          dist/**
           --repo '${{ github.repository }}'
