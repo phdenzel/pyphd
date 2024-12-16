@@ -40,7 +40,7 @@ jobs:
             ./dist/*.tar.gz
             ./dist/*.whl
 
-      - name: Fetch release tag
+      - name: Fetch release tag 🔖
         env:
           GH_TOKEN: ${{ secrets.READ_WRITE_PAT }}
         run: >-
@@ -48,7 +48,7 @@ jobs:
           && echo "RELEASE_TAG=${{ inputs.tag }}" >> $GITHUB_ENV
           || echo "RELEASE_TAG=$(gh api repos/${{ github.repository }}/tags --jq '.[0].name')" >> $GITHUB_ENV
 
-      - name: Create GitHub Release 🔖
+      - name: Create GitHub Release ✨
         env:
           GH_TOKEN: ${{ secrets.READ_WRITE_PAT }}
         run: >-

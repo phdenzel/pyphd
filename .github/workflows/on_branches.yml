@@ -1,4 +1,4 @@
-# Workflow that triggers when commits are pushed, but aren't in a PR
+# Workflow that triggers when commits are pushed to a non-default branch, but aren't in a PR
 
 name: Branch workflow
 
